@@ -23,5 +23,5 @@ module.exports = merge(commonConfig, devConfig);
 
 This might be an stupid implementation but I did set up webpack so I do not have to worry about publishing my API KEY
 
-* Run nom install inside the Frontend directory
-* After installing the dependencies run 'npm start' to start webpack server and visit: http://localhost:8080/ 
+* Run npm install inside the Frontend directory
+* After installing the dependencies run 'npm run build-dev' to build your files and then 'npm start' to start webpack server and visit: http://localhost:8080/ 
