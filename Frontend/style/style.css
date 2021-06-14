@@ -21,8 +21,8 @@ body {
 }
 
 .search-container {
-    width: 20%;
-    height: 5%;
+    width: 400px;;
+    height: 50px;
     background-color: #454e53;
     position: absolute;
     z-index: 10;
@@ -50,4 +50,16 @@ body {
 
 input:focus {
     outline: none;
+}
+
+.store-list-container {
+    position: absolute;
+    z-index: 10;
+    top: 280px;
+    left: 100px;
+    width: 400px;
+    height: 500px;
+    border-radius: 30px;
+    background-color: white;
+    z-index: 10;
 }
