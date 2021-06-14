@@ -1,3 +1,5 @@
+let map;
+
 window.onload = () => {
     initMap();
 }
@@ -5,8 +7,17 @@ window.onload = () => {
 
 function initMap() {
     // Create the map.
-    const map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 7,
         center: { lat: 34.063380, lng: -118.358080 },
+    });
+    createMarker();
+}
+
+const createMarker = () => {
+    new google.maps.Marker({
+        position: { lat: 34.063380, lng: -118.358080 },
+        map,
+        title: "Hello World!",
     });
 }
