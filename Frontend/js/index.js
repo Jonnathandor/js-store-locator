@@ -1,10 +1,10 @@
 let map;
 let infowindow;
+const markers = []; 
 
 window.onload = () => {
     initMap();
 };
-
 
 function initMap() {
     // Create the map.
@@ -14,7 +14,6 @@ function initMap() {
     });
     infowindow = new google.maps.InfoWindow();
     getStores();
-    createMarker();
 };
 
 const getStores = () => {
@@ -29,10 +28,11 @@ const getStores = () => {
     .then(data => {
         searchLocationNear(data);
         setStoresList(data);
+        setOnClickListener();
     });
 };
 
-const searchLocationNear = (stores) => {
+const searchLocationNear = stores => {
     let bounds = new google.maps.LatLngBounds();
     stores.forEach((store, index) => {
         let latLng = new google.maps.LatLng(
@@ -86,6 +86,16 @@ const createMarker = (latLng, name, address, openStatusText, storeNumber, phoneN
     marker.addListener("click", () => {
         infowindow.setContent(html);
         infowindow.open(map, marker);
+    });
+    markers.push(marker);
+};
+
+const setOnClickListener = () => {
+    let storeElements = document.querySelectorAll('.store-container');
+    storeElements.forEach((element, index) => {
+        element.addEventListener('click', () => {
+            google.maps.event.trigger(markers[index], 'click');
+        });
     });
 };
 
