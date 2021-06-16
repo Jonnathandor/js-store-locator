@@ -28,6 +28,7 @@ const getStores = () => {
     })
     .then(data => {
         searchLocationNear(data);
+        setStoresList(data);
     });
 };
 
@@ -86,4 +87,31 @@ const createMarker = (latLng, name, address, openStatusText, storeNumber, phoneN
         infowindow.setContent(html);
         infowindow.open(map, marker);
     });
+};
+
+const setStoresList = stores => {
+    let storesHtml = '';
+    stores.forEach((store, index) => {
+        storesHtml += `
+        <div class="store-container">
+            <div class="store-info-container">
+                <div class="store-address">
+                    ${store.addressLines[0]} <br>
+                    ${store.addressLines[1]}
+                </div>
+                <div class="store-number-container">
+                    <div class="store-phone-number">
+                        ${store.phoneNumber}
+                    </div>
+                </div>
+            </div>
+            <div class="store-number-container">
+                <div class="store-number">
+                    ${index+1}
+                </div>
+            </div>
+        </div>
+        `;
+    })
+    document.querySelector('.stores-list').innerHTML = storesHtml;
 };

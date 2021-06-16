@@ -7,6 +7,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow-y: hidden;
 }
 
 .title {
@@ -62,6 +63,8 @@ input:focus {
     border-radius: 30px;
     background-color: white;
     z-index: 10;
+    display: flex;
+    overflow-y: scroll;
 }
 
 .store-info-window {
@@ -106,4 +109,63 @@ input:focus {
     color: #514c4c;
     text-decoration: none;
 }
+
+.stores-list {
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 10px;
+    flex-grow: 1;
+}
+
+.store-container {
+    height: 80px;
+    border-bottom: 1px solid grey;
+    display: flex;
+}
+
+.store-info-container {
+    display: flex;
+    flex-basis: 90%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.store-phone-number {
+    margin-bottom: 10px;
+}
+
+.store-address {
+    color: #514c4c;
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.store-number-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 10%;
+    color: #514c4c;
+}
+
+.store-number {
+    background-color: grey;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.store-container:hover {
+    background-color: #cccccc;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+
 
