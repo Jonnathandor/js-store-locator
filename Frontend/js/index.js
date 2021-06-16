@@ -26,6 +26,7 @@ const getStores = () => {
         return res.json();
     })
     .then(data => {
+        console.log(data);
         searchLocationNear(data);
         setStoresList(data);
         setOnClickListener();
