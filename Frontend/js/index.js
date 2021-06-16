@@ -1,8 +1,8 @@
 let map;
+let infowindow;
 
 window.onload = () => {
     initMap();
-    getStores();
 };
 
 
@@ -12,6 +12,8 @@ function initMap() {
         zoom: 7,
         center: { lat: 34.063380, lng: -118.358080 },
     });
+    infowindow = new google.maps.InfoWindow();
+    getStores();
     createMarker();
 };
 
@@ -25,8 +27,6 @@ const getStores = () => {
         return res.json();
     })
     .then(data => {
-        console.log('here');
-        console.log(data);
         searchLocationNear(data);
     });
 };
@@ -41,16 +41,49 @@ const searchLocationNear = (stores) => {
 
         let name = store.storeName;
         let address = store.addressLines[0];
+        let openStatusText = store.openStatusText;
+        let phoneNumber = store.phoneNumber;
         bounds.extend(latLng);
-        createMarker(latLng, name, address);
+        createMarker(latLng, name, address, openStatusText, index+1, phoneNumber);
     });
     map.fitBounds(bounds);
 };
 
-const createMarker = (latLng, name, address) => {
-    new google.maps.Marker({
+const createMarker = (latLng, name, address, openStatusText, storeNumber, phoneNumber) => {
+    let html = `
+        <div class="store-info-window">
+            <div class="store-info-name">
+                ${name}
+            </div>
+            <div class="store-info-open-status">
+                ${openStatusText}
+            </div>
+            <div class="store-info-address">
+                <div class="icon">
+                    <i class="fas fa-location-arrow"></i>
+                </div> 
+                <span>
+                    ${address}
+                </span>
+            </div>
+            <div class="store-info-phone">
+                <div class="icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div> 
+                <span>
+                    <a href="tel:${phoneNumber}">${phoneNumber}</a>
+                </span>
+            </div>
+        </div>
+    `;
+    const marker = new google.maps.Marker({
         position: latLng,
         map,
-        title: "Hello World!",
+        label: `${storeNumber}`
+    });
+
+    marker.addListener("click", () => {
+        infowindow.setContent(html);
+        infowindow.open(map, marker);
     });
 };
