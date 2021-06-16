@@ -4,6 +4,10 @@ const markers = [];
 
 window.onload = () => {
     initMap();
+
+    document.getElementById('search').addEventListener('click', () => {
+        getStores();
+    });
 };
 
 function initMap() {
@@ -13,12 +17,14 @@ function initMap() {
         center: { lat: 34.063380, lng: -118.358080 },
     });
     infowindow = new google.maps.InfoWindow();
-    getStores();
 };
 
 const getStores = () => {
-    const URL = 'http://localhost:3000/api/stores';
-    fetch(URL)
+    zip_code = document.getElementById('zip-code').value; 
+    const API_URL = 'http://localhost:3000/api/stores';
+    const fullUrl = `${API_URL}?zip_code=${zip_code}`;
+    if(!zip_code) return;
+    fetch(fullUrl)
     .then(res => {
         if(res.status !== 200){
             throw new Error(res.status);
@@ -26,7 +32,7 @@ const getStores = () => {
         return res.json();
     })
     .then(data => {
-        console.log(data);
+        clearLocations();
         searchLocationNear(data);
         setStoresList(data);
         setOnClickListener();
@@ -125,4 +131,12 @@ const setStoresList = stores => {
         `;
     })
     document.querySelector('.stores-list').innerHTML = storesHtml;
+};
+
+const clearLocations = () => {
+    infowindow.close();
+    for(let i = 0; i < markers.length; i++){
+        markers[i].setMap(null);
+    }
+    markers.length = 0;
 };
