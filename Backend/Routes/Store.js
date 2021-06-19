@@ -13,5 +13,22 @@ StoreRouter.get('/stores', async (req, res) => {
     });
 });
 
+StoreRouter.post('/stores', async (req, res) => {
+    const stores = req.body;
+    storeController.saveStores(stores).then(stores => {
+        res.status(200).send(stores);
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+});
+
+StoreRouter.delete('/stores', async (req, res) => {
+    storeController.deleteStores().then(() => {
+        res.status(200).send('Stores Deleted');
+    }).catch(err => {
+        res.status(500).send(err);
+    });
+});
+
 
 module.exports = StoreRouter;
